@@ -38,7 +38,7 @@ function App() {
         camera={ camera }
         renderer={ renderer }
       />
-  <HackitFox3D/>
+    <HackitFox3D/>
     </div>
   )
 

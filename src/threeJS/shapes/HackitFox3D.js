@@ -1,7 +1,7 @@
 import React from 'react'
 import { returnSvgGroupByUrl } from '../utils/svg'
 
-export default function HackitFox3D() {
+export const HackitFox3D = () => {
   
   const svgGroup = returnSvgGroupByUrl(`/svgs/hackitFox.svg`)
 

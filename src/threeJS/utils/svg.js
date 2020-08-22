@@ -1,25 +1,19 @@
-import {
-  SVGLoader,
-  Group,
-  MeshBasicMaterial,
-  DoubleSide,
-  ShapeBufferGeometry,
-  Mesh
-} from 'three'
+import {THREE} from 'three.js'
+import {SVGLoader} from 'three/examples/jsm/loaders/SVGLoader.js'
 
 export const handleSvgIsLoaded = data => {}
 
 export const returnGroup = data => {
   const paths = data.paths
 
-  const group = new Group()
+  const group = new THREE.Group()
 
   for (var i = 0; i < paths.length; i++) {
     var path = paths[i]
 
-    var material = new MeshBasicMaterial({
+    var material = new THREE.MeshBasicMaterial({
       color: path.color,
-      side: DoubleSide,
+      side: THREE.DoubleSide,
       depthWrite: false
     })
 
@@ -27,8 +21,8 @@ export const returnGroup = data => {
 
     for (var j = 0; j < shapes.length; j++) {
       var shape = shapes[j]
-      var geometry = new ShapeBufferGeometry(shape)
-      var mesh = new Mesh(geometry, material)
+      var geometry = new THREE.ShapeBufferGeometry(shape)
+      var mesh = new THREE.Mesh(geometry, material)
 
       group.add(mesh)
     }
