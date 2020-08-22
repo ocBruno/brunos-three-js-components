@@ -1,0 +1,10 @@
+{
+  "prettier.useEditorConfig": false,
+  "prettier.alignObjectProperties": true,
+  "prettier.arrayExpand": true,
+  "prettier.javascriptEnable": [
+  
+    "javascript",
+    "javascriptreact"
+  ]
+}
