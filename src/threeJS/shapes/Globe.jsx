@@ -1,5 +1,6 @@
 import React from 'react'
 import * as THREE from "three"
+import { DoubleSide } from 'three'
 
 export const Globe = ( props ) => {
   const scene = props.scene
@@ -8,23 +9,41 @@ export const Globe = ( props ) => {
   const light = new THREE.DirectionalLight(0xffffff, 0.8);
 
   const positionX = props.positionX
+  const positionY = props.positionY
 
-  var mapSimpleTexture = new THREE.TextureLoader().load( 'earth-simple-shapes.jpg' );
+  var mapSimpleTexture = new THREE.TextureLoader().load( 'earth-simple-shapes.png' );
+  var bumpMapSimpleTexture = new THREE.TextureLoader().load( 'earth-simple-shapes-bump-map.png' );
+  mapSimpleTexture.anisotropy = 16
+  mapSimpleTexture.encoding = THREE.sRGBEncoding;
   const globeMesh = new THREE.Mesh(
-  new THREE.SphereGeometry(0.8, 32, 32),
+  new THREE.SphereGeometry(1 * props.scale, 34, 34),
   new THREE.MeshPhongMaterial({
-    map: mapSimpleTexture
+    map: mapSimpleTexture,
+    transparent: true,
+    bumpMap: bumpMapSimpleTexture,
+    bumpScale: 1,
+    alphaTest: 0.4,
+    color: props.color,
+    shininess: 50,
+    side: THREE.DoubleSide
   })
 );
 
   
   globeMesh.position.x = positionX
+  globeMesh.position.y = positionY
 
   const animationLoop = () => {
     requestAnimationFrame( animationLoop )
+    if(props.invertRotation === true) {
+      globeMesh.rotation.x -= 0.01 * props.rotateAcceleration / 10;
+      globeMesh.rotation.y -= 0.01 * props.rotateAcceleration / 10;
+    } else {
+      globeMesh.rotation.x += 0.01 * props.rotateAcceleration / 10;
+      globeMesh.rotation.y += 0.01 * props.rotateAcceleration / 10;
 
-    globeMesh.rotation.x += 0.01;
-    globeMesh.rotation.y += 0.01;
+    }
+
 
     renderer.render( scene, camera )
   }
